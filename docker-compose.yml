@@ -1,0 +1,19 @@
+version: '2'
+services:
+  m0:
+    image: bolingcavalry/ubuntu16-mongodb349:0.0.1
+    container_name: m0
+    ports:
+      - "28017:28017"
+    command: /bin/sh -c 'mongod --replSet replset0'
+    restart: always
+  m1:
+    image: bolingcavalry/ubuntu16-mongodb349:0.0.1
+    container_name: m1
+    command: /bin/sh -c 'mongod --replSet replset0'
+    restart: always
+  m2:
+    image: bolingcavalry/ubuntu16-mongodb349:0.0.1
+    container_name: m2
+    command: /bin/sh -c 'mongod --replSet replset0'
+    restart: always

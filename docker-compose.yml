@@ -1,19 +1,20 @@
 version: '2'
 services:
   m0:
-    image: bolingcavalry/ubuntu16-mongodb349:0.0.1
-    container_name: m0
+    image: mongo:4.0.9-xenial
+    container_name: m-master
     ports:
-      - "28017:28017"
-    command: /bin/sh -c 'mongod --replSet replset0'
+      - "27017:27017"
+    command: --noprealloc --smallfiles --replSet rs1 --oplogSize 128
+    volumes:
+      - ~/docker/mongo/master:/data/db
     restart: always
   m1:
-    image: bolingcavalry/ubuntu16-mongodb349:0.0.1
-    container_name: m1
-    command: /bin/sh -c 'mongod --replSet replset0'
-    restart: always
-  m2:
-    image: bolingcavalry/ubuntu16-mongodb349:0.0.1
-    container_name: m2
-    command: /bin/sh -c 'mongod --replSet replset0'
+    image: mongo:4.0.9-xenial
+    container_name: m-slave
+    ports:
+      - "27018:27017"
+    command: --noprealloc --smallfiles --replSet rs1 --oplogSize 128
+    volumes:
+      - ~/docker/mongo/slave:/data/db
     restart: always
